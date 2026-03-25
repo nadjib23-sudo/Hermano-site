@@ -52,36 +52,7 @@
             <button onclick="openOrderModal()" class="bg-white text-black font-black py-4 px-12 rounded-full hover:scale-105 transition-transform">
     اطلب الآن
 </button>
-
-        </div>
-    </header>
-
-    <!-- قسم المنتجات -->
-    <section class="max-w-7xl mx-auto px-4 py-20">
-        <h2 class="text-3xl font-black mb-12">وصل حديثاً</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="product-grid">
-            <!-- سيتم توليد المنتجات بواسطة JavaScript -->
-        </div>
-    </section>
-
-    <!-- بنر الذكاء الاصطناعي -->
-    <section class="max-w-7xl mx-auto px-4 pb-20">
-        <div class="bg-gray-900 rounded-[2rem] p-10 md:p-16 text-white flex flex-col md:flex-row items-center justify-between gap-10">
-            <div class="max-w-xl">
-                <span class="bg-blue-600 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">AI Powered</span>
-                <h2 class="text-4xl font-black mt-4 mb-6">اقتراحات ذكية مخصصة لك</h2>
-                <p class="text-gray-400 leading-relaxed">نستخدم تقنيات الذكاء الاصطناعي لنقترح عليك المنتجات التي تناسب ذوقك واحتياجاتك بدقة متناهية.</p>
-            </div>
-            <div class="bg-white/10 backdrop-blur-xl border border-white/20 p-8 rounded-3xl w-full md:w-80">
-                <div class="h-3 w-32 bg-white/20 rounded mb-4"></div>
-                <div class="h-3 w-full bg-white/10 rounded mb-2"></div>
-                <div class="h-3 w-2/3 bg-white/10 rounded"></div>
-            </div>
-        </div>
-    </section>
-
-    <script src="script.js"></script>
-    <select id="state" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-black transition" required>
+<select id="state" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-black transition" required>
     <option value="">اختر ولايتك (58 ولاية)</option>
     <option value="01-أدرار">01- أدرار</option>
     <option value="02-الشلف">02- الشلف</option>
@@ -141,6 +112,35 @@
     <option value="56-جانت">56- جانت</option>
     <option value="57-المغير">57- المغير</option>
     <option value="58-المنيعة">58- المنيعة</option>
-    </select>
+</select>
+        </div>
+    </header>
+
+    <!-- قسم المنتجات -->
+    <section class="max-w-7xl mx-auto px-4 py-20">
+        <h2 class="text-3xl font-black mb-12">وصل حديثاً</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="product-grid">
+            <!-- سيتم توليد المنتجات بواسطة JavaScript -->
+        </div>
+    </section>
+
+    <!-- بنر الذكاء الاصطناعي -->
+    <section class="max-w-7xl mx-auto px-4 pb-20">
+        <div class="bg-gray-900 rounded-[2rem] p-10 md:p-16 text-white flex flex-col md:flex-row items-center justify-between gap-10">
+            <div class="max-w-xl">
+                <span class="bg-blue-600 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">AI Powered</span>
+                <h2 class="text-4xl font-black mt-4 mb-6">اقتراحات ذكية مخصصة لك</h2>
+                <p class="text-gray-400 leading-relaxed">نستخدم تقنيات الذكاء الاصطناعي لنقترح عليك المنتجات التي تناسب ذوقك واحتياجاتك بدقة متناهية.</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-xl border border-white/20 p-8 rounded-3xl w-full md:w-80">
+                <div class="h-3 w-32 bg-white/20 rounded mb-4"></div>
+                <div class="h-3 w-full bg-white/10 rounded mb-2"></div>
+                <div class="h-3 w-2/3 bg-white/10 rounded"></div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    
 </body>
 </html>
