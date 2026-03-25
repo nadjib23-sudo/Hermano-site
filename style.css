@@ -33,3 +33,29 @@
     background: #000;
     border-radius: 10px;
 }
+
+/* تحسين شكل الأزرار لتكون أكثر تفاعلاً */
+button, .btn {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* إضافة لمسة انسيابية للخلفيات المضببة */
+.backdrop-blur-md {
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+}
+
+/* تحسين شكل صور المنتجات */
+#product-grid img {
+    border-radius: 15px;
+    transition: transform 0.5s ease;
+}
+
+#product-grid img:hover {
+    transform: scale(1.05);
+}
