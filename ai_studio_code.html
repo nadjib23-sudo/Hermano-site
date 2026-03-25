@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hermano | متجر هيرمانو للأناقة</title>
+    <!-- استدعاء Tailwind CSS وخطوط جوجل -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50 text-gray-900 font-arabic">
+
+    <!-- شريط التنقل (Navbar) -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="text-2xl font-black tracking-tighter">HERMANO</div>
+                
+                <div class="hidden md:flex space-x-8 space-x-reverse font-bold text-sm">
+                    <a href="#" class="hover:text-blue-600 transition">الرئيسية</a>
+                    <a href="#" class="hover:text-blue-600 transition">المتجر</a>
+                    <a href="#" class="hover:text-blue-600 transition">العروض</a>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <div class="relative cursor-pointer" id="cart-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 11h14l1 12H4L5 11z" />
+                        </svg>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-black text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full">0</span>
+                    </div>
+                    <button class="md:hidden" id="mobile-menu-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- قسم الـ Hero -->
+    <header class="relative h-[70vh] flex items-center justify-center overflow-hidden bg-black text-white">
+        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=1920" 
+             class="absolute inset-0 w-full h-full object-cover opacity-50" alt="Hero">
+        <div class="relative z-10 text-center px-4">
+            <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight">ارتقِ بأسلوبك مع هيرمانو</h1>
+            <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10">اكتشف تشكيلة الموسم الجديدة التي تجمع بين الفخامة والراحة.</p>
+            <button class="bg-white text-black font-black py-4 px-12 rounded-full hover:scale-105 transition-transform">تسوق الآن</button>
+        </div>
+    </header>
+
+    <!-- قسم المنتجات -->
+    <section class="max-w-7xl mx-auto px-4 py-20">
+        <h2 class="text-3xl font-black mb-12">وصل حديثاً</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="product-grid">
+            <!-- سيتم توليد المنتجات بواسطة JavaScript -->
+        </div>
+    </section>
+
+    <!-- بنر الذكاء الاصطناعي -->
+    <section class="max-w-7xl mx-auto px-4 pb-20">
+        <div class="bg-gray-900 rounded-[2rem] p-10 md:p-16 text-white flex flex-col md:flex-row items-center justify-between gap-10">
+            <div class="max-w-xl">
+                <span class="bg-blue-600 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">AI Powered</span>
+                <h2 class="text-4xl font-black mt-4 mb-6">اقتراحات ذكية مخصصة لك</h2>
+                <p class="text-gray-400 leading-relaxed">نستخدم تقنيات الذكاء الاصطناعي لنقترح عليك المنتجات التي تناسب ذوقك واحتياجاتك بدقة متناهية.</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-xl border border-white/20 p-8 rounded-3xl w-full md:w-80">
+                <div class="h-3 w-32 bg-white/20 rounded mb-4"></div>
+                <div class="h-3 w-full bg-white/10 rounded mb-2"></div>
+                <div class="h-3 w-2/3 bg-white/10 rounded"></div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
