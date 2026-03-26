@@ -94,3 +94,8 @@ document.getElementById('customer-form').onsubmit = function(e) {
     
     window.open(`https://wa.me/${myNumber}?text=${message}`, '_blank');
 };
+// وظيفة فتح وإغلاق قائمة الجوال
+function toggleMenu() {
+    const menu = document.getElementById('mobile-menu');
+    menu.classList.toggle('hidden');
+}
