@@ -78,7 +78,7 @@ function closeModal() {
     document.getElementById('order-modal').classList.add('hidden');
 }
 
-// معالجة إرسال النموذج
+// وظيفة إرسال النموذج للواتساب
 document.getElementById('customer-form').onsubmit = function(e) {
     e.preventDefault();
     
@@ -86,27 +86,11 @@ document.getElementById('customer-form').onsubmit = function(e) {
     const phone = document.getElementById('phone').value;
     const state = document.getElementById('state').value;
     
-    // رسالة الواتساب المنظمة
-    const message = `طلب جديد من Hermano 🛒%0A%0A` +
-                    `👤 الاسم: ${name}%0A` +
-                    `📞 الهاتف: ${phone}%0A` +
-                    `📍 الولاية: ${state}%0A%0A` +
-                    `يرجى التواصل لتأكيد الطلب!`;
+    // رسالة الواتساب - تأكد من عدم وجود رموز غريبة
+    const message = `طلب جديد من Hermano🛒%0Aالاسم: ${name}%0Aالهاتف: ${phone}%0Aالولاية: ${state}`;
     
-    // رقم هاتفك المكتوب في الكود السابق
+    // رقم الواتساب الخاص بك
     const myNumber = "213664603307"; 
-    
-    window.open(`https://wa.me/${myNumber}?text=${message}`, '_blank');
-};
-document.getElementById('customer-form').onsubmit = function(e) {
-    e.preventDefault(); // لمنع الصفحة من التحديث
-    
-    const name = document.getElementById('full-name').value;
-    const phone = document.getElementById('phone').value;
-    const state = document.getElementById('state').value;
-    
-    const message = `طلب جديد من Hermano%0Aالاسم: ${name}%0Aالهاتف: ${phone}%0Aالولاية: ${state}`;
-    const myNumber = "213664603307"; // تأكد من صحة رقمك هنا
     
     window.open(`https://wa.me/${myNumber}?text=${message}`, '_blank');
 };
