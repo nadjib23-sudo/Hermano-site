@@ -98,3 +98,15 @@ document.getElementById('customer-form').onsubmit = function(e) {
     
     window.open(`https://wa.me/${myNumber}?text=${message}`, '_blank');
 };
+document.getElementById('customer-form').onsubmit = function(e) {
+    e.preventDefault(); // لمنع الصفحة من التحديث
+    
+    const name = document.getElementById('full-name').value;
+    const phone = document.getElementById('phone').value;
+    const state = document.getElementById('state').value;
+    
+    const message = `طلب جديد من Hermano%0Aالاسم: ${name}%0Aالهاتف: ${phone}%0Aالولاية: ${state}`;
+    const myNumber = "213664603307"; // تأكد من صحة رقمك هنا
+    
+    window.open(`https://wa.me/${myNumber}?text=${message}`, '_blank');
+};
