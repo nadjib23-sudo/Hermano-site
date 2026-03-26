@@ -69,3 +69,32 @@ function addToCart() {
 
 // تشغيل الوظائف عند تحميل الصفحة
 window.onload = displayProducts;
+// وظائف فتح وإغلاق النافذة المنبثقة
+function openOrderModal() {
+    document.getElementById('order-modal').classList.remove('hidden');
+}
+
+function closeModal() {
+    document.getElementById('order-modal').classList.add('hidden');
+}
+
+// معالجة إرسال النموذج
+document.getElementById('customer-form').onsubmit = function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('full-name').value;
+    const phone = document.getElementById('phone').value;
+    const state = document.getElementById('state').value;
+    
+    // رسالة الواتساب المنظمة
+    const message = `طلب جديد من Hermano 🛒%0A%0A` +
+                    `👤 الاسم: ${name}%0A` +
+                    `📞 الهاتف: ${phone}%0A` +
+                    `📍 الولاية: ${state}%0A%0A` +
+                    `يرجى التواصل لتأكيد الطلب!`;
+    
+    // رقم هاتفك المكتوب في الكود السابق
+    const myNumber = "213664603307"; 
+    
+    window.open(`https://wa.me/${myNumber}?text=${message}`, '_blank');
+};
