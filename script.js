@@ -97,5 +97,12 @@ document.getElementById('customer-form').onsubmit = function(e) {
 // وظيفة فتح وإغلاق قائمة الجوال
 function toggleMenu() {
     const menu = document.getElementById('mobile-menu');
-    menu.classList.toggle('hidden');
+    // هذا السطر يقوم بإظهار القائمة إذا كانت مخفية والعكس
+    if (menu.classList.contains('hidden')) {
+        menu.classList.remove('hidden');
+        menu.classList.add('flex');
+    } else {
+        menu.classList.remove('flex');
+        menu.classList.add('hidden');
+    }
 }
