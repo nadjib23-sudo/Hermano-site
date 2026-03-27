@@ -8,7 +8,7 @@ const products = [
 
 let cart = [];
 
-// 2. عرض المنتجات في الصفحة
+// 2. عرض المنتجات في الصفحة الرئيسية
 function displayProducts() {
     const grid = document.getElementById('product-grid');
     if (grid) {
@@ -20,27 +20,68 @@ function displayProducts() {
                 <div class="p-6 text-right" dir="rtl">
                     <h3 class="font-bold text-lg">${product.name}</h3>
                     <p class="text-xl font-black text-blue-600 my-4">${product.price} د.ج</p>
-                    <button onclick="addToCart(${product.id})" class="w-full bg-black text-white py-4 rounded-2xl">أضف للسلة 🛒</button>
+                    <button onclick="addToCart(${product.id})" class="w-full bg-black text-white py-4 rounded-2xl transition active:scale-95">أضف للسلة 🛒</button>
                 </div>
             </div>
         `).join('');
     }
 }
 
-// 3. إضافة منتج وتحديث العداد
+// 3. إدارة السلة (إضافة، حذف، تحديث)
 function addToCart(productId) {
     const product = products.find(p => p.id === productId);
     cart.push(product);
-    document.getElementById('cart-count').innerText = cart.length;
-    alert("تمت الإضافة ✅");
+    updateCartCount();
+    alert(`تمت إضافة ${product.name} ✅`);
 }
 
+function updateCartCount() {
+    const cartCount = document.getElementById('cart-count');
+    if (cartCount) cartCount.innerText = cart.length;
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCartCount();
+    if (cart.length === 0) {
+        closeModal();
+    } else {
+        openOrderModal(); // إعادة تحديث القائمة داخل النافذة
+    }
+}
+
+// 4. التحكم في النوافذ (Modals)
 function openOrderModal() {
-    if (cart.length === 0) return alert("السلة فارغة");
-    document.getElementById('order-modal').classList.remove('hidden');
+    if (cart.length === 0) return alert("السلة فارغة!");
+
+    const modal = document.getElementById('order-modal');
+    const itemsListContainer = document.getElementById('cart-items-list');
+    
+    // حساب المجموع وعرض المنتجات مع زر الحذف
+    let total = cart.reduce((sum, item) => sum + item.price, 0);
+    
+    if (itemsListContainer) {
+        itemsListContainer.innerHTML = `
+            <p class="text-sm font-bold mb-3 text-gray-500">المنتجات المختارة:</p>
+            ${cart.map((item, index) => `
+                <div class="flex justify-between items-center bg-gray-50 p-3 rounded-xl mb-2 border border-gray-100" dir="rtl">
+                    <span class="text-sm font-medium">${item.name} (${item.price} د.ج)</span>
+                    <button onclick="removeFromCart(${index})" class="text-red-500 text-xs font-bold border border-red-100 px-2 py-1 rounded-lg hover:bg-red-50">حذف</button>
+                </div>
+            `).join('')}
+            <div class="border-t mt-4 pt-3 flex justify-between font-bold text-blue-600">
+                <span>المجموع الإجمالي:</span>
+                <span>${total} د.ج</span>
+            </div>
+        `;
+    }
+    
+    modal.classList.remove('hidden');
 }
 
-function closeModal() { document.getElementById('order-modal').classList.add('hidden'); }
+function closeModal() {
+    document.getElementById('order-modal').classList.add('hidden');
+}
 
 function toggleMenu() {
     const menu = document.getElementById('mobile-menu');
@@ -48,17 +89,17 @@ function toggleMenu() {
     menu.classList.toggle('flex');
 }
 
-// 4. إرسال البيانات حصرياً لجوجل شيت (تم حذف الواتساب نهائياً)
+// 5. إرسال البيانات لجوجل شيت عند تحميل الصفحة
 window.onload = function() {
     displayProducts();
     const form = document.getElementById('customer-form');
-    
+
     if (form) {
         form.onsubmit = function(e) {
             e.preventDefault();
             
             const submitBtn = form.querySelector('button[type="submit"]');
-            submitBtn.innerText = "جاري التأكيد...⏳";
+            submitBtn.innerText = "جاري الحفظ...⏳";
             submitBtn.disabled = true;
 
             const data = {
@@ -69,7 +110,6 @@ window.onload = function() {
                 total: cart.reduce((sum, item) => sum + item.price, 0) + " د.ج"
             };
 
-            // رابط Google Script الخاص بك
             const scriptURL = 'https://script.google.com/macros/s/AKfycbxvdJn4nIRjs9Cql3_jk-ESU27SOE6kdim-bMnDNfGWyDTdgafcpRnBmqgStzJje-NP/exec';
 
             fetch(scriptURL, {
@@ -78,19 +118,18 @@ window.onload = function() {
                 body: JSON.stringify(data)
             })
             .then(() => {
-                alert("تم ارسال طلبك! ✅");
+                alert("شكراً لك! تم استلام طلبك بنجاح ✅");
                 cart = [];
-                document.getElementById('cart-count').innerText = "0";
+                updateCartCount();
                 closeModal();
                 form.reset();
                 submitBtn.innerText = "تأكيد الطلب";
                 submitBtn.disabled = false;
             })
             .catch(() => {
-                alert("خطأ في الإرسال");
+                alert("عذراً، حدث خطأ أثناء الإرسال.");
                 submitBtn.disabled = false;
             });
         };
     }
 };
-
