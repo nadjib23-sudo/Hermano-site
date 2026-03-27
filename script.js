@@ -78,7 +78,7 @@ window.onload = function() {
                 body: JSON.stringify(data)
             })
             .then(() => {
-                alert("تم الإرسال للجدول بنجاح! ✅");
+                alert("تم ارسال طلبك! ✅");
                 cart = [];
                 document.getElementById('cart-count').innerText = "0";
                 closeModal();
