@@ -8,7 +8,7 @@ const products = [
 
 let cart = [];
 
-// دالة التنبيه الاحترافي (بديلة لـ alert)
+// دالة التنبيه الاحترافي (لإخفاء رابط الموقع)
 function showToast(message) {
     const toast = document.getElementById('toast');
     if (toast) {
@@ -20,7 +20,7 @@ function showToast(message) {
     }
 }
 
-// 2. عرض المنتجات
+// 2. عرض المنتجات مع زر "اطلب الآن" وزر "السلة"
 function displayProducts() {
     const grid = document.getElementById('product-grid');
     if (grid) {
@@ -32,14 +32,26 @@ function displayProducts() {
                 <div class="p-6 text-right" dir="rtl">
                     <h3 class="font-bold text-lg text-gray-800">${product.name}</h3>
                     <p class="text-xl font-black text-blue-600 my-4">${product.price} د.ج</p>
-                    <button onclick="addToCart(${product.id})" class="w-full bg-black text-white py-4 rounded-2xl active:scale-95 transition">أضف للسلة 🛒</button>
+                    
+                    <div class="flex gap-2">
+                        <button onclick="buyNow(${product.id})" class="flex-1 bg-black text-white py-4 rounded-2xl font-bold active:scale-95 transition shadow-lg">اطلب الآن ⚡</button>
+                        
+                        <button onclick="addToCart(${product.id})" class="w-14 bg-gray-100 text-black py-4 rounded-2xl flex items-center justify-center active:scale-95 transition border border-gray-200">🛒</button>
+                    </div>
                 </div>
             </div>
         `).join('');
     }
 }
 
-// 3. إدارة السلة
+// 3. إدارة العمليات (شراء فوري / إضافة للسلة)
+function buyNow(productId) {
+    const product = products.find(p => p.id === productId);
+    cart.push(product);
+    updateCartUI();
+    openOrderModal(); // فتح النافذة فوراً
+}
+
 function addToCart(productId) {
     const product = products.find(p => p.id === productId);
     cart.push(product);
@@ -63,7 +75,7 @@ function removeFromCart(index) {
     }
 }
 
-// 4. النوافذ المنبثقة
+// 4. نافذة الطلب (Order Modal)
 function openOrderModal() {
     if (cart.length === 0) {
         showToast("سلتك فارغة! أضف منتجات أولاً 🛒");
@@ -75,14 +87,15 @@ function openOrderModal() {
 
     if (listContainer) {
         listContainer.innerHTML = `
+            <p class="text-xs font-bold text-gray-400 mb-2 text-right">طلبيتك الحالية:</p>
             ${cart.map((item, index) => `
-                <div class="flex justify-between items-center bg-gray-50 p-3 rounded-2xl mb-2" dir="rtl">
+                <div class="flex justify-between items-center bg-gray-50 p-3 rounded-2xl mb-2 border border-gray-100 shadow-sm" dir="rtl">
                     <span class="text-sm font-bold">${item.name} (${item.price} د.ج)</span>
-                    <button onclick="removeFromCart(${index})" class="text-red-500 p-2">حذف</button>
+                    <button onclick="removeFromCart(${index})" class="text-red-500 font-bold p-1">حذف</button>
                 </div>
             `).join('')}
-            <div class="mt-4 pt-3 border-t font-black text-blue-600 flex justify-between">
-                <span>الإجمالي:</span>
+            <div class="mt-4 pt-3 border-t-2 border-dashed border-gray-200 font-black text-blue-600 flex justify-between">
+                <span>المجموع الإجمالي:</span>
                 <span>${total} د.ج</span>
             </div>
         `;
@@ -98,7 +111,7 @@ function toggleMenu() {
     menu.classList.toggle('flex');
 }
 
-// 5. الإرسال لـ Google Sheets
+// 5. إرسال البيانات لجدول جوجل
 window.onload = function() {
     displayProducts();
     const form = document.getElementById('customer-form');
@@ -106,7 +119,7 @@ window.onload = function() {
         form.onsubmit = function(e) {
             e.preventDefault();
             const submitBtn = form.querySelector('button[type="submit"]');
-            submitBtn.innerText = "جاري التأكيد...⏳";
+            submitBtn.innerText = "جاري تأكيد طلبك...⏳";
             submitBtn.disabled = true;
 
             const data = {
@@ -121,7 +134,7 @@ window.onload = function() {
 
             fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) })
             .then(() => {
-                showToast("تم استلام طلبك بنجاح ✅");
+                showToast("شكراً لك! تم استلام طلبك بنجاح ✅");
                 cart = [];
                 updateCartUI();
                 closeModal();
@@ -130,9 +143,11 @@ window.onload = function() {
                 submitBtn.disabled = false;
             })
             .catch(() => {
-                showToast("❌ حدث خطأ في الإرسال");
+                showToast("❌ حدث خطأ، يرجى المحاولة مرة أخرى");
                 submitBtn.disabled = false;
+                submitBtn.innerText = "تأكيد الطلب";
             });
         };
     }
 };
+
