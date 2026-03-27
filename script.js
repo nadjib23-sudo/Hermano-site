@@ -20,7 +20,7 @@ function showToast(message) {
     }
 }
 
-// 2. عرض المنتجات مع زر "اطلب الآن" وزر "السلة"
+// 2. عرض المنتجات في الصفحة
 function displayProducts() {
     const grid = document.getElementById('product-grid');
     if (grid) {
@@ -35,7 +35,6 @@ function displayProducts() {
                     
                     <div class="flex gap-2">
                         <button onclick="buyNow(${product.id})" class="flex-1 bg-black text-white py-4 rounded-2xl font-bold active:scale-95 transition shadow-lg">اطلب الآن ⚡</button>
-                        
                         <button onclick="addToCart(${product.id})" class="w-14 bg-gray-100 text-black py-4 rounded-2xl flex items-center justify-center active:scale-95 transition border border-gray-200">🛒</button>
                     </div>
                 </div>
@@ -44,12 +43,12 @@ function displayProducts() {
     }
 }
 
-// 3. إدارة العمليات (شراء فوري / إضافة للسلة)
+// 3. إدارة السلة والشراء الفوري
 function buyNow(productId) {
     const product = products.find(p => p.id === productId);
     cart.push(product);
     updateCartUI();
-    openOrderModal(); // فتح النافذة فوراً
+    openOrderModal(); 
 }
 
 function addToCart(productId) {
@@ -75,7 +74,7 @@ function removeFromCart(index) {
     }
 }
 
-// 4. نافذة الطلب (Order Modal)
+// 4. نافذة الطلب (Modal)
 function openOrderModal() {
     if (cart.length === 0) {
         showToast("سلتك فارغة! أضف منتجات أولاً 🛒");
@@ -89,7 +88,7 @@ function openOrderModal() {
         listContainer.innerHTML = `
             <p class="text-xs font-bold text-gray-400 mb-2 text-right">طلبيتك الحالية:</p>
             ${cart.map((item, index) => `
-                <div class="flex justify-between items-center bg-gray-50 p-3 rounded-2xl mb-2 border border-gray-100 shadow-sm" dir="rtl">
+                <div class="flex justify-between items-center bg-gray-50 p-3 rounded-2xl mb-2 border border-gray-100" dir="rtl">
                     <span class="text-sm font-bold">${item.name} (${item.price} د.ج)</span>
                     <button onclick="removeFromCart(${index})" class="text-red-500 font-bold p-1">حذف</button>
                 </div>
@@ -111,7 +110,7 @@ function toggleMenu() {
     menu.classList.toggle('flex');
 }
 
-// 5. إرسال البيانات لجدول جوجل
+// 5. إرسال البيانات (مع إضافة حقل البلدية)
 window.onload = function() {
     displayProducts();
     const form = document.getElementById('customer-form');
@@ -126,6 +125,7 @@ window.onload = function() {
                 name: document.getElementById('full-name').value,
                 phone: document.getElementById('phone').value,
                 state: document.getElementById('state').value,
+                commune: document.getElementById('commune').value, // البلدية هنا
                 items: cart.map(item => item.name).join(' + '),
                 total: cart.reduce((sum, item) => sum + item.price, 0) + " د.ج"
             };
@@ -150,4 +150,3 @@ window.onload = function() {
         };
     }
 };
-
